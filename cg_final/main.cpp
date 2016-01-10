@@ -20,10 +20,11 @@ extern double viewNear;
 extern double viewFar;
 extern double viewAngle;
 
-bool gameStart = false;
+bool gameStart = true;
 
 void lightInit()
-{	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+{
+	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
 	GLfloat mat_shininess[] = { 50.0 };
 	GLfloat light_position[] = { 1.0, 1.0, 10.0, 1.0 };
 	GLfloat white_light[] = { 1.0, 1.0, 1.0, 1.0 };
@@ -40,7 +41,8 @@ void lightInit()
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	glEnable(GL_DEPTH_TEST);}
+	glEnable(GL_DEPTH_TEST);
+}
 
 void display()
 {
@@ -55,7 +57,7 @@ void display()
 	if (gameStart){
 		Vector position = myPlayer.get_position();
 		Vector point = position + myPlayer.get_forward();
-
+		/*cout << position.x << position.y << position.z << endl;*/
 		gluLookAt(position.x, position.y, position.z, point.x, point.y, point.z, 0.0, 0.0, 1.0);
 
 		myPlayer.move();

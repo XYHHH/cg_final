@@ -3,11 +3,16 @@
 
 #include <cmath>
 #include "Vector.h"
+#include "rigidObj.h"
 #include "bump_system.h"
-class player
+class player: public rigidObj
 {
 public:
-	player(double x, double y, double z) : position(x,y,z), forward(-1.0, 0.0, 0.0){
+	player(double x, double y, double z) {
+		position = Vector(x,y,z);
+		forward = Vector(-1.0, 0.0, 0.0);
+		radius = 0.1;
+		height = 0.5;
 		speed = 0.002;
 		HP = 100;
 		zoom = false;
@@ -18,41 +23,15 @@ public:
 
 	void move();
 
-	void set_move_state(int bit, bool mode){
-		move_state[bit] = mode;
-	}
+	void set_move_state(int bit, bool mode){ move_state[bit] = mode;}
 
-	Vector get_forward(){
-		return forward;
-	}
+	int get_HP(){ return HP; }
 
-	Vector get_position(){
-		return position;
-	}
+	int get_score(){ return score; }
 
-	void set_forward(Vector v){
-		forward = v;
-	}
+	void change_zoom(){ zoom = !zoom; }
 
-	void set_position(Vector v){
-		position = v;
-	}
-
-	int get_HP(){
-		return HP;
-	}
-
-	int get_score(){
-		return score;
-	}
-
-	void change_zoom(){
-		zoom = !zoom;
-	}
-
-	bool get_zoom(){
-		return zoom;
-	}
+	bool get_zoom(){ return zoom; }
 
 private:
 	bool move_state[4];// front: 0, back: 1, left: 2, right: 3
@@ -61,8 +40,6 @@ private:
 	int score;
 	double speed;
 	double theta;
-	Vector forward;
-	Vector position;
 };
 #endif
 

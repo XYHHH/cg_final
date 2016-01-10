@@ -21,3 +21,7 @@ Vector Vector::operator-(Vector v){
 Vector Vector::operator*(Vector v){
 	return Vector(y*v.z - z*v.y, z*v.x - x*v.z, x*v.y - y*v.x);
 }
+
+void Vector::operator=(Vector v){
+	x = v.x; y = v.y; z = v.z;
+}

@@ -201,6 +201,7 @@ void showWelcomePage(){
 	glEnable(GL_TEXTURE_2D);
 
 	//welcome background
+	glColor3f(0.7, 0.7, 0.7);
 	glBindTexture(GL_TEXTURE_2D, bck_texture);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f);
@@ -214,25 +215,38 @@ void showWelcomePage(){
 	glEnd();
 	glDisable(GL_TEXTURE_2D);
 
-	/*selectFont(36, ANSI_CHARSET, "Comic Sans MS");
-	glColor3f(0.2f, 1.0f, 0.2f);
-	glRasterPos2f(0.65f * WINDOW_SIZE_RATE, -0.8f);
-	drawString(score_str.c_str());
-*/
+	selectFont(64, ANSI_CHARSET, "Comic Sans MS");
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glRasterPos2f(-0.30f * WINDOW_SIZE_RATE, 0.5f);
+	drawString("COUNTER STRIKE");
+
+	glPushMatrix();
+	glColor3f(0.4, 0.4, 0.4);
+	
+	//selectFont(16, ANSI_CHARSET, "Calibri Light");
+	glRasterPos2f(-0.23f * WINDOW_SIZE_RATE, -0.2f);
+	drawString("GAME START");
+
+	glRasterPos2f(-0.1f * WINDOW_SIZE_RATE, -0.5f);
+	drawString("EXIT");
+	glPopMatrix();
 
 
-	glBindTexture(GL_TEXTURE_2D, btn_texture);
+	
+	/*glBindTexture(GL_TEXTURE_2D, btn_texture);
 	glBegin(GL_QUADS);
 	glTexCoord2f(0.0f, 0.0f);
-	glVertex2f(-WINDOW_SIZE_RATE, 1.0);
+	glVertex2f(-0.2 * WINDOW_SIZE_RATE, 0);
 	glTexCoord2f(1.0f, 0.0f);
-	glVertex2f(WINDOW_SIZE_RATE, 1.0);
+	glVertex2f(0.2 * WINDOW_SIZE_RATE, 0);
 	glTexCoord2f(1.0f, 1.0f);
-	glVertex2f(WINDOW_SIZE_RATE, -1.0);
+	glVertex2f(0.2 * WINDOW_SIZE_RATE, -0.3);
 	glTexCoord2f(0.0f, 1.0f);
-	glVertex2f(-WINDOW_SIZE_RATE, -1.0);
+	glVertex2f(-0.2 * WINDOW_SIZE_RATE, -0.3);
 	glEnd();
-	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_TEXTURE_2D);*/
+
+
 	//glRectf(-6,6,-4.5,4.5);//background
 
 	//glRectf(-2, 2, -2, -1);//button1
