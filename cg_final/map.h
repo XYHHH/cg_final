@@ -25,7 +25,7 @@ class map
 public:
 	map(){}
 
-	void addTexture(Vector point1,Vector point2, unsigned int texture);
+	void addTexture(Vector point1, Vector point2, unsigned int top, unsigned int front, unsigned int back, unsigned int left, unsigned right);
 
 	void drawGround();
 

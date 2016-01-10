@@ -2,6 +2,11 @@
 
 unsigned int bck_texture;
 unsigned int wall_texture;
+unsigned int sky_back;
+unsigned int sky_front;
+unsigned int sky_top;
+unsigned int sky_right;
+unsigned int sky_left;
 
 void initTexture()
 {
@@ -13,6 +18,15 @@ void initTexture()
 	wall_texture = LoadBitMap("../button_background.bmp");
 	if (wall_texture == -1){
 		printf("load button background error");
+		exit(0);
+	}
+	sky_back = LoadBitMap("../grand canyon/grand_canyon_back.bmp");
+	sky_top = LoadBitMap("../grand canyon/grand_canyon_top.bmp");
+	sky_front = LoadBitMap("../grand canyon/grand_canyon_front.bmp");
+	sky_right = LoadBitMap("../grand canyon/grand_canyon_right.bmp");
+	sky_left = LoadBitMap("../grand canyon/grand_canyon_left.bmp");
+	if (sky_back == -1 || sky_top == -1 || sky_front == -1 || sky_right == -1 || sky_left == -1){
+		printf("load sky background error");
 		exit(0);
 	}
 }
