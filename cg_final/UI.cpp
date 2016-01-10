@@ -28,11 +28,11 @@ void initUI()
 		printf("load welcome background error");
 		exit(0);
 	}
-	//btn_texture = LoadBitMap("../button_background.bmp");
-	/*if (btn_texture == -1){
+	btn_texture = LoadBitMap("../button_background.bmp");
+	if (btn_texture == -1){
 		printf("load button background error");
 		exit(0);
-	}*/
+	}
 }
 
 

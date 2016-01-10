@@ -20,7 +20,7 @@ extern double viewNear;
 extern double viewFar;
 extern double viewAngle;
 
-bool gameStart = true;
+bool gameStart = false;
 
 void lightInit()
 {	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
@@ -97,7 +97,7 @@ int main(int argc, char *argv[])
 	glutSpecialFunc(specialKeys);
 	glutSpecialUpFunc(upSpecialKeys);
 
-	lightInit();
+	//lightInit();
 	glutSetCursor(GLUT_CURSOR_NONE);
 	SetCursorPos(windowWidth/2, windowHeight/2);
 	glutPassiveMotionFunc(OnMouseMove);
