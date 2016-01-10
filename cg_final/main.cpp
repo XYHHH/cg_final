@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include <Windows.h>
+#include "texture.h"
 #include "Vector.h"
 #include "keyboard.h"
 #include "mouse.h"
@@ -91,7 +92,7 @@ int main(int argc, char *argv[])
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 
 	//myModel.parse("Resources/monk.obj");
-	initUI();
+	initTexture();
 
 	glutKeyboardFunc(normalKeys);
 	glutKeyboardUpFunc(upNormalKeys);

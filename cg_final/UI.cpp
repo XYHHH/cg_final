@@ -5,6 +5,7 @@
 #include <iostream>
 #include "player.h"
 #include "UI.h"
+#include "texture.h"
 #define MAX_CHAR 128
 
 using namespace std;
@@ -16,24 +17,10 @@ extern double viewNear;
 extern double viewFar;
 extern double viewAngle;
 
-unsigned int bck_texture;
-unsigned int btn_texture;
+extern unsigned int bck_texture;
 
 const double WINDOW_SIZE_RATE = 1.0* GetSystemMetrics(SM_CXSCREEN) / GetSystemMetrics(SM_CYSCREEN);
 
-void initUI()
-{
-	bck_texture = LoadBitMap("../welcome_background.bmp");
-	if (bck_texture == -1){
-		printf("load welcome background error");
-		exit(0);
-	}
-	btn_texture = LoadBitMap("../button_background.bmp");
-	if (btn_texture == -1){
-		printf("load button background error");
-		exit(0);
-	}
-}
 
 
 void drawString(const char* str)
@@ -129,62 +116,6 @@ void showAim()
 	glVertex2f(-0.03f, 0.0f);
 	glVertex2f(-0.03f - aim_size, 0.0f);
 	glEnd();
-}
-
-
-int LoadBitMap(const char *file)
-{
-	unsigned int ID, i;
-	int width, height;
-	byte *image;
-	byte t;
-	FILE *fp;
-	BITMAPFILEHEADER FileHeader;
-	BITMAPINFOHEADER InfoHeader;
-	fp = fopen(file, "rb");
-	if (fp == NULL){
-		perror("LoadBitMap");
-		return -1;
-	}
-	fread(&FileHeader, sizeof(BITMAPFILEHEADER),1,fp);
-	if (FileHeader.bfType != 0x4D42)  //确保文件是一个位图文件，效验文件类型
-	{
-		printf("Error: This file is not a bmp file!");
-		fclose(fp);
-		return -1;
-	}
-	fread(&InfoHeader, sizeof(BITMAPINFOHEADER), 1, fp);
-	width = InfoHeader.biWidth;
-	height = InfoHeader.biHeight;
-	if (InfoHeader.biSizeImage == 0)  {
-		InfoHeader.biSizeImage = width*height * 3;
-	}
-
-	fseek(fp, FileHeader.bfOffBits, SEEK_SET); 
-	image = (byte *)malloc(sizeof(byte)*InfoHeader.biSizeImage);
-	if (image == NULL)
-	{
-		free(image);
-		printf("Error: No enough space!");
-		return -1;
-	}
-	fread(image, 1, InfoHeader.biSizeImage, fp);
-	for (i = 0; i < InfoHeader.biSizeImage; i += 3){
-		t = image[i];
-		image[i] = image[i + 2];
-		image[i + 2] = t;
-	}
-	fclose(fp);
-	glGenTextures(1, &ID);
-
-	glBindTexture(GL_TEXTURE_2D, ID);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-	gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGB, GL_UNSIGNED_BYTE, image);
-
-	return ID;
 }
 
 

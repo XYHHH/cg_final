@@ -1,9 +1,10 @@
 #ifndef MAP_H
 #define MAP_H
+#include "Vector.h"
 
 static const int mapLength = 10;
 static const int mapWidth = 10;
-static const double wallHeight = 5;
+static const double wallHeight = 3;
 static const int mazeMap[mapLength][mapWidth] = {
 	// -----------  width ------------>
 	{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },	//  |
@@ -19,11 +20,12 @@ static const int mazeMap[mapLength][mapWidth] = {
 };
 
 
-
 class map
 {
 public:
 	map(){}
+
+	void addTexture(Vector point1,Vector point2, unsigned int texture);
 
 	void drawGround();
 
