@@ -12,7 +12,7 @@ void player::move(){ // front: 0, back: 1, left: 2, right: 3
 			position.y += delta;
 	}
 	if (move_state[1]){
-		delta = forward.x / rate * speed;
+		delta = -(forward.x / rate * speed);
 		if (BUMP_SYSTEM::check_bump(this,0,delta))
 			position.x += delta;
 		delta = -(forward.y / rate * speed);

@@ -1,4 +1,6 @@
 #include "texture.h"
+#include <iostream>
+using namespace std;
 
 unsigned int bck_texture;
 unsigned int wall_texture;
