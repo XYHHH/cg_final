@@ -39,16 +39,16 @@ public:
 	bool get_zoom(){ return zoom; }
 
 	bullet* shoot();
+
+	virtual void drop();
 private:
 	bool move_state[4];// front: 0, back: 1, left: 2, right: 3
 	bool roam;
 	bool zoom;
 	int HP;
 	int score;
-	double vertical_speed;
 	double speed;
 	double theta;
-	double gravity;
 
 };
 #endif

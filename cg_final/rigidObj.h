@@ -15,11 +15,21 @@ public:
 	void set_radius(double r){ radius = r; }
 	double get_height(){ return height; }
 	void set_height(double h){ height = h; }
-
+	virtual void drop(){
+		double delta = -vertical_speed;
+		if (BUMP_SYSTEM::check_bump(this, 2, delta)){
+			position.z += delta;
+			vertical_speed += gravity;
+		}
+		else
+			vertical_speed = 0;
+	}
 protected:
 	Vector position;
 	Vector forward;
 	double radius;
 	double height;
+	double gravity;
+	double vertical_speed;
 };
 #endif

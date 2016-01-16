@@ -47,17 +47,22 @@ void player::move(){ // front: 0, back: 1, left: 2, right: 3
 	}
 
 	// gravity
-	delta = -vertical_speed; 
-	if (!roam && BUMP_SYSTEM::check_bump(this, 2, delta)){
-		position.z += delta;
-		vertical_speed += gravity;
-	}
-	else if (!roam)
-		vertical_speed = 0;
+	drop();
 }
 
 bullet* player::shoot()
 {
 	bullet* p = new bullet(position + forward, forward);
 	return p;
+}
+
+void player::drop()
+{
+	double delta = -vertical_speed;
+	if (!roam && BUMP_SYSTEM::check_bump(this, 2, delta)){
+		position.z += delta;
+		vertical_speed += gravity;
+	}
+	else if (!roam)
+		vertical_speed = 0;
 }

@@ -23,6 +23,7 @@ extern double viewNear;
 extern double viewFar;
 extern double viewAngle;
 vector<bullet*> bullets;
+vector<monster*> monsters;
 //OBJ *gun;
 bool gameStart = true;
 
