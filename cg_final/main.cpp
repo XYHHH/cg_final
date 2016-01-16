@@ -9,18 +9,19 @@
 #include "mouse.h"
 #include "map.h"
 #include "player.h"
+#include "OBJ.h"
 #include "UI.h"
 using namespace std;
 
 //obj3dmodel myModel;
 player myPlayer(2.0,2.0,0.5);
-map myMap;
+Map myMap;
 extern int windowWidth;
 extern int windowHeight;
 extern double viewNear;
 extern double viewFar;
 extern double viewAngle;
-
+//OBJ *gun;
 bool gameStart = true;
 
 void lightInit()
@@ -61,6 +62,7 @@ void display()
 		/*cout << position.x << position.y << position.z << endl;*/
 		gluLookAt(position.x, position.y, position.z, point.x, point.y, point.z, 0.0, 0.0, 1.0);
 
+		//gun->render(1,1,0,0);
 		myPlayer.move();
 		myMap.redraw();
 		showGameUI();
@@ -68,6 +70,8 @@ void display()
 	else{
 		showWelcomePage();
 	}
+
+	//gluLookAt(3, 3, 3, 0, 0, 0, 0.0, 0.0, 1.0);
 
 	glutSwapBuffers();
 	glFlush();
@@ -93,6 +97,7 @@ int main(int argc, char *argv[])
 
 	//myModel.parse("Resources/monk.obj");
 	initTexture();
+	//gun = new OBJ("../cg_final/gun.obj");
 
 	glutKeyboardFunc(normalKeys);
 	glutKeyboardUpFunc(upNormalKeys);

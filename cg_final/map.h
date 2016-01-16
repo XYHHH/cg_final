@@ -20,10 +20,10 @@ static const int mazeMap[mapLength][mapWidth] = {
 };
 
 
-class map
+class Map
 {
 public:
-	map(){}
+	Map(){}
 
 	void addTexture(Vector point1, Vector point2, unsigned int top, unsigned int front, unsigned int back, unsigned int left, unsigned right);
 

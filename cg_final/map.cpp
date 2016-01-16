@@ -9,29 +9,33 @@ extern unsigned int sky_front;
 extern unsigned int sky_top;
 extern unsigned int sky_right;
 extern unsigned int sky_left;
+extern unsigned int ground_texture;
 
-void map::drawSky(){
+void Map::drawSky(){
 	//draw sky
-	Vector point1(-5, -5, -1);
-	Vector point2(mapLength + 5, mapWidth + 5, wallHeight + 15);
+	Vector point1(-5, -5, -6);
+	Vector point2(mapLength + 5, mapWidth + 5, wallHeight + 10);
 
 	addTexture(point1, point2, sky_top, sky_front, sky_back, sky_left, sky_right);
 
 	glEnd();
 }
 
-void map::drawGround(){
+void Map::drawGround(){
 	//draw ground
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, ground_texture);
 	glBegin(GL_QUADS);
 	glColor3f(0.7f, 0.7f, 0.3f);
-	glVertex3f(-5.0f, -5.0f, 0);
-	glVertex3f(-5.0f, 14.0f, 0);
-	glVertex3f(14.0f, 14.0f, 0);
-	glVertex3f(14.0f, -5.0f, 0);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(-5.0f, -5.0f, 0);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-5.0f, 14.0f, 0);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(14.0f, 14.0f, 0);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(14.0f, -5.0f, 0);
 	glEnd();
+	glDisable(GL_TEXTURE_2D);
 }
 
-void map::addTexture(Vector point1, Vector point2, unsigned int top, unsigned int front,unsigned int back, unsigned int left, unsigned right){
+void Map::addTexture(Vector point1, Vector point2, unsigned int top, unsigned int front,unsigned int back, unsigned int left, unsigned right){
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	//glClear(GL_COLOR_BUFFER_BIT);
 	glEnable(GL_TEXTURE_2D);
@@ -80,7 +84,7 @@ void map::addTexture(Vector point1, Vector point2, unsigned int top, unsigned in
 	glDisable(GL_TEXTURE_2D);
 }
 
-void map::redraw(){
+void Map::redraw(){
 	drawGround();
 
 	drawSky();

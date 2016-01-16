@@ -9,6 +9,8 @@ unsigned int sky_front;
 unsigned int sky_top;
 unsigned int sky_right;
 unsigned int sky_left;
+unsigned int gun_texture;
+unsigned int ground_texture;
 
 void initTexture()
 {
@@ -22,6 +24,7 @@ void initTexture()
 		printf("load button background error");
 		exit(0);
 	}
+	//gun_texture = LoadBitMap("../M24R_S.bmp");
 	sky_back = LoadBitMap("../grand canyon/grand_canyon_back.bmp");
 	sky_top = LoadBitMap("../grand canyon/grand_canyon_top.bmp");
 	sky_front = LoadBitMap("../grand canyon/grand_canyon_front.bmp");
@@ -31,6 +34,7 @@ void initTexture()
 		printf("load sky background error");
 		exit(0);
 	}
+	ground_texture = LoadBitMap("../ground.bmp");
 }
 
 
@@ -85,6 +89,6 @@ int LoadBitMap(const char *file)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 	gluBuild2DMipmaps(GL_TEXTURE_2D, 3, width, height, GL_RGB, GL_UNSIGNED_BYTE, image);
-
+	cout << "texture"<<ID << endl;
 	return ID;
 }
