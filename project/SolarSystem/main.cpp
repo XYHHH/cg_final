@@ -3,8 +3,9 @@ using namespace std;
 int eye_x = 0;
 int eye_y = 0;
 int eye_z = 5;
+float des_d = 0;
 int currentW, currentH;
-OBJ *monkey,*ant;
+OBJ *monkey,*ant,*bot;
 void keyboard(unsigned char key, int x, int y)
     {
         switch (key)
@@ -12,9 +13,11 @@ void keyboard(unsigned char key, int x, int y)
 
         case 'a':
             eye_x -= 1;
+            //des_d+=0.1;
             break;
         case 'd':
             eye_x += 1;
+            //des_d-=0.1;
             break;
         case 'w':
             eye_y += 1;
@@ -37,8 +40,9 @@ void display(void)
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     //gluLookAt(eye_x, eye_y, eye_z, 0, 0, 0, 0, 1, 0);
     //glLoadIdentity();
-    //monkey->render(1,0,0,0,0,-1);
-    ant->render(-1,-2,0,0,0,1);
+   // monkey->render(1,0,0,sin(des_d),0,cos(des_d));
+    ant->render(0,0,0,0,0,1);
+    //bot->render(0,0,0,0,0,1);
 }
 void reshape(int w, int h)
 {
@@ -63,9 +67,11 @@ void init(void)
     glEnable(GL_LIGHTING);
 
 
-    monkey = new OBJ("gun.obj",0,0,1);
-    ant = new OBJ("Ant-Man.obj",0,0,1);
-    monkey->setScale(0.5);
+    //monkey = new OBJ("gun.obj",0,0,1);
+    ant = new OBJ("drone.obj",0,0,1);
+    //bot = new OBJ("R2-D2.obj",0,0,1);
+
+    //monkey->setScale(0.5);
     ant->setScale(1);
     // นโิด
 

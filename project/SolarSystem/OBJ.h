@@ -8,17 +8,25 @@
 #include <fstream>
 #include <sstream>
 #include <Windows.h>
+#include <vector>
 using namespace std;
 //#define FILE_NAME "monkey.obj"
 #define Num_Faces 4
 #define Function_Draw GL_TRIANGLE_FAN
 
 #define BITMAP_ID 0x4D42 // the universal bitmap ID
+double dianji_degree(double x1, double y1, double z1, double x2, double y2, double z2)
+{
+    double ans = (x1*x2+y1*y2+z1*z2)/
+            sqrt((x1*x1+y1*y1+z1*z1)*(x2*x2+y2*y2+z2*z2));
+   // cout<<"dianji_degree: "<<ans<<endl;
+    return ans;
+}
 double chaji_degree(double x1, double y1, double z1, double x2, double y2, double z2)
 {
     double ans = sqrt(pow(y1*z2-z1*y2,2)+pow(z1*x2-x1*z2,2)+pow(x1*y2-y1*x2,2))/
             sqrt((x1*x1+y1*y1+z1*z1)*(x2*x2+y2*y2+z2*z2));
-    cout<<"chaji_degree: "<<ans<<endl;
+   // cout<<"chaji_degree: "<<ans<<endl;
     return ans;
 }
 int LoadBitMap(const char *file)
@@ -114,7 +122,7 @@ public:
                 cout << Ke[i] << " ";
         cout << endl;
         cout << Ns[0] << endl;
-        cout << Ni[0] << endl;
+       // cout << Ni[0] << endl;
         cout << d << endl;
         cout << illum << endl;
         cout << "------------" << endl;
@@ -131,7 +139,7 @@ public:
     {
         istringstream tmp(s);
         string ss;
-        //cout<<hash_cal("map_Bump")<<endl;
+        //cout<<"hash:"<<hash_cal("refl")<<endl;
         tmp >> ss;
         switch (hash_cal(ss))
         {
@@ -177,6 +185,7 @@ public:
             break;
         case (44487)://refl
             //something need doing
+            cout<<"this material is done"<<endl;
             return 1;
         default:
             cout << "useless:  ->" << ss << endl;
@@ -216,7 +225,7 @@ public:
         glPushMatrix();
 
         glTranslatef(x, y, z);
-        double degree = asin(chaji_degree(des_x,des_y,des_z,sx,sy,sz)),
+        double degree = acos(dianji_degree(des_x,des_y,des_z,sx,sy,sz)),
                pivot_x =  des_y * sz - des_z * sy,
                pivot_y = des_z * sx - des_x * sz,
                pivot_z = des_x * sy - des_y * sx;
@@ -227,10 +236,12 @@ public:
         for (int i = 0; i < f_num; i++)
 
         {
+           //cout<<"face "<<i<<":"<<MArr[i]<<endl;
             if (current_material != MArr[i])
             {
                 setMaterial(MArr[i]);
                 current_material = MArr[i];
+                cout<<"material changed to "<<MArr[i]<<endl;
             }
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             //glColor3f(1, 1, 1);
@@ -240,11 +251,11 @@ public:
             {
                 if (fvArr[i][j] == NULL) break;
                 //cout <<fvArr[i][j]-1<<" !j! ";
-                glTexCoord2f(vtArr[ftArr[i][j] - 1][0], vtArr[ftArr[i][j] - 1][1]);
+                if (ftArr[i][j]!=-1) glTexCoord2f(vtArr[ftArr[i][j] - 1][0], vtArr[ftArr[i][j] - 1][1]);
 
-                glNormal3f(vnArr[fnArr[i][j] - 1][0], vnArr[fnArr[i][j] - 1][1], vnArr[fnArr[i][j] - 1][2]);
+                if (fnArr[i][j]!=-1) glNormal3f(vnArr[fnArr[i][j] - 1][0], vnArr[fnArr[i][j] - 1][1], vnArr[fnArr[i][j] - 1][2]);
 
-                glVertex3f(vArr[fvArr[i][j] - 1][0], vArr[fvArr[i][j] - 1][1], vArr[fvArr[i][j] - 1][2]);
+                if (fvArr[i][j]!=-1) glVertex3f(vArr[fvArr[i][j] - 1][0], vArr[fvArr[i][j] - 1][1], vArr[fvArr[i][j] - 1][2]);
 
             }
             // cout<<endl;
@@ -260,10 +271,11 @@ public:
             glEnd();
 
         }
-
         glFlush();
         glPopMatrix();
         glDisable(GL_TEXTURE_2D);
+
+        current_material="jb";
     }
     void setScale(double s)
     {
@@ -284,6 +296,7 @@ private:
     int **fnArr; //存放面法线的二维数组
     int **ftArr; //存
     string *MArr;
+    vector<MTL*> MTLS;
     double Scale = 1, des_x, des_y, des_z;
 
 //    QImage tex,buffer;
@@ -297,23 +310,27 @@ private:
         string MaterialName = "";
         string slice, head;
         ifstream infile(s.c_str());
+
         while (getline(infile, slice))
         {
             istringstream sli(slice);
             sli >> head;
-            if (head == "newmtl")
+            if (head == "newmtl"&&sli!=""&&sli!=NULL)
             {
                 sli >> MaterialName;
                 cout << MaterialName << endl;
-                MTL tmp;//= new MTL();
+                MTL *tmp= new MTL();
                 while (getline(infile, slice))
                 {
-                    if (tmp.get_info(slice) == 1) break;
+                    if (tmp->get_info(slice) == 1) break;
                 }
-                tmp.print_info();
-                MTL_map.insert(make_pair(MaterialName, tmp));
+
+                MTLS.push_back(tmp);
+                tmp->print_info();
+                MTL_map.insert(make_pair(MaterialName, *(MTLS.at(MTLS.size()-1))));
             }
         }
+        cout<<"Kd: " <<MTLS.at(0)->map_Kd<<endl;
         cout << "loading finished!" << endl;
 
 
@@ -405,6 +422,10 @@ private:
 
         }
 
+//        memset(ftArr,-1,sizeof(ftArr)); //有些面没存贴图坐标，烦
+//        memset(fvArr,-1,sizeof(fvArr));
+//        memset(fnArr,-1,sizeof(fnArr));
+
         ifstream infile(addrstr.c_str());
 
         string sline;//每一行
@@ -493,23 +514,26 @@ private:
 
                         a = a * 10 + (s1[k] - 48);
 
-                    fvArr[kk][i] = a;
+                    if (a!=0) fvArr[kk][i] = a;
+                        else fvArr[kk][i] = -1;
 
                     a = 0;
 
-                    for (k = k + 1; s1[k] != '/'; k++)
+                    for (k = k + 1; s1[k] != '/'&&k<s1.length(); k++)
 
                         a = a * 10 + (s1[k] - 48);
 
-                    ftArr[kk][i] = a;
+                    if (a!=0) ftArr[kk][i] = a;
+                         else ftArr[kk][i] = -1;
 
                     a = 0;
 
 
-                    for (k = k + 1; s1[k]; k++)
+                    for (k = k + 1; k<s1.length(); k++)
                         a = a * 10 + (s1[k] - 48);;
 
-                    fnArr[kk][i] = a;
+                    if (a!=0) fnArr[kk][i] = a;
+                         else fnArr[kk][i] = -1;
 
                     s1 = "";
 

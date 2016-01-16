@@ -1,24 +1,8 @@
 # depslib dependency file v1.0
-1445761597 source:c:\users\rex\desktop\roundb\solarsystem\main.cpp
-	<GL/glut.h>
-	<math.h>
-
-1445785115 source:c:\users\rex\desktop\图形学\assignment3(3120000255魏煜欣)\solarsystem\main.cpp
-	<GL/glut.h>
-	<math.h>
-
-1452249713 source:c:\users\rex\desktop\图形学\project\solarsystem\main.cpp
-	<GL/glut.h>
-	<math.h>
-	<string>
-	<iostream>
-	<fstream>
-	<sstream>
-
-1452449817 source:c:\users\rex\desktop\project\solarsystem\main.cpp
+1452955822 source:c:\users\rex\desktop\project\solarsystem\main.cpp
 	"OBJ.h"
 
-1452449059 c:\users\rex\desktop\project\solarsystem\obj.h
+1452955230 c:\users\rex\desktop\project\solarsystem\obj.h
 	<map>
 	<GL/glut.h>
 	<math.h>
@@ -27,4 +11,5 @@
 	<fstream>
 	<sstream>
 	<Windows.h>
+	<vector>
 
