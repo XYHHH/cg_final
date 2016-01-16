@@ -29,6 +29,10 @@ public:
 
 	void operator=(Vector v);
 
+	bool operator>(Vector v);
+
+	bool operator<(Vector v);
+
 	double x, y, z;
 };
 #endif

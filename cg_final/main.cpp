@@ -67,11 +67,17 @@ void display()
 		//gun->render(1,1,0,0);
 		myPlayer.move();
 		myMap.redraw();
-		BUMP_SYSTEM::check_hit();
 		vector<bullet*>::iterator i;
-		for (i = bullets.begin(); i != bullets.end(); i++){
+		for (i = bullets.begin(); i != bullets.end();){
 			(*i)->move();
 			(*i)->redraw();
+			if (BUMP_SYSTEM::check_hit(*i)){
+				delete (*i);
+				bullets.erase(i);
+			}
+			else
+				i++;
+
 		}
 		showGameUI();
 	}

@@ -41,3 +41,12 @@ void Vector::operator-=(Vector v){
 void Vector::operator*=(double v){
 	x *= v; y *= v; z *= v;
 }
+
+bool Vector::operator<(Vector v){
+	return x < v.x && y < v.y && z < v.z;
+}
+
+bool Vector::operator>(Vector v){
+	return x>v.x && y>v.y && z>v.z;
+}
+

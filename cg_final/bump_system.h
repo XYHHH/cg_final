@@ -5,11 +5,13 @@
 #include "Vector.h"
 #include "rigidObj.h"
 #include "map.h"
+#include "bullet.h"
+
 class BUMP_SYSTEM
 {
 public:
 	BUMP_SYSTEM(){}
-	static bool check_bump(rigidObj* obj, int direction, double delta){//direction 0:x, 1:y
+	static bool check_bump(rigidObj* obj, int direction, double delta){//direction 0:x, 1:y ; if not bump return true
 		Vector position = obj->get_position();
 		double radius = obj->get_radius();
 		double height = obj->get_height();
@@ -41,8 +43,16 @@ public:
 		}
 	}
 	
-	static void check_hit(){
-		
+	static bool check_hit(bullet* p){ // if hit return true, else false
+		Vector forward = p->get_forward();
+		Vector position = p->get_position();
+		double speed = p->get_speed();
+		double delta = forward.x * speed;
+		Vector tmp = forward + position;
+		if (tmp > Vector(0, 0, 0) && tmp < Vector(mapLength, mapWidth, wallHeight + 5))
+			return BUMP_SYSTEM::check_bump(p, 0, delta) && BUMP_SYSTEM::check_bump(p, 0, delta) && BUMP_SYSTEM::check_bump(p, 0, delta);
+		else
+			return false;
 	}
 
 };
