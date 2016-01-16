@@ -4,6 +4,7 @@
 #include <cmath>
 #include "Vector.h"
 #include "rigidObj.h"
+#include "bullet.h"
 #include "bump_system.h"
 class player: public rigidObj
 {
@@ -18,7 +19,7 @@ public:
 		zoom = false;
 		score = 0;
 		theta = 0.001;
-		gravity = 0.002;
+		gravity = 0.0002;
 		vertical_speed = 0;
 		move_state[0] = move_state[1] = move_state[2] = move_state[3] = roam = false;
 	}
@@ -37,6 +38,7 @@ public:
 
 	bool get_zoom(){ return zoom; }
 
+	bullet* shoot();
 private:
 	bool move_state[4];// front: 0, back: 1, left: 2, right: 3
 	bool roam;

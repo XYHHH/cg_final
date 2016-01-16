@@ -15,9 +15,17 @@ public:
 
 	Vector operator+(Vector v);
 
+	void operator+=(Vector v);
+
 	Vector operator-(Vector v);
 
+	void operator-=(Vector v);
+
 	Vector operator*(Vector v);
+
+	void operator*=(double v);
+
+	Vector operator*(double v);
 
 	void operator=(Vector v);
 

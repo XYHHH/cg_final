@@ -55,3 +55,9 @@ void player::move(){ // front: 0, back: 1, left: 2, right: 3
 	else if (!roam)
 		vertical_speed = 0;
 }
+
+bullet* player::shoot()
+{
+	bullet* p = new bullet(position + forward, forward);
+	return p;
+}

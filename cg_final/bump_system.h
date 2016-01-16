@@ -42,7 +42,7 @@ public:
 	}
 	
 	static void check_hit(){
-
+		
 	}
 
 };

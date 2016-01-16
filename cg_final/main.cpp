@@ -7,6 +7,7 @@
 #include "Vector.h"
 #include "keyboard.h"
 #include "mouse.h"
+#include "bullet.h"
 #include "map.h"
 #include "player.h"
 #include "OBJ.h"
@@ -21,6 +22,7 @@ extern int windowHeight;
 extern double viewNear;
 extern double viewFar;
 extern double viewAngle;
+vector<bullet*> bullets;
 //OBJ *gun;
 bool gameStart = true;
 
@@ -65,6 +67,12 @@ void display()
 		//gun->render(1,1,0,0);
 		myPlayer.move();
 		myMap.redraw();
+		BUMP_SYSTEM::check_hit();
+		vector<bullet*>::iterator i;
+		for (i = bullets.begin(); i != bullets.end(); i++){
+			(*i)->move();
+			(*i)->redraw();
+		}
 		showGameUI();
 	}
 	else{

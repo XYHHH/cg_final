@@ -22,6 +22,22 @@ Vector Vector::operator*(Vector v){
 	return Vector(y*v.z - z*v.y, z*v.x - x*v.z, x*v.y - y*v.x);
 }
 
+Vector Vector::operator*(double v){
+	return Vector(x*v, y*v, z*v);
+}
+
 void Vector::operator=(Vector v){
 	x = v.x; y = v.y; z = v.z;
+}
+
+void Vector::operator+=(Vector v){
+	x += v.x; y += v.y; z += v.z;
+}
+
+void Vector::operator-=(Vector v){
+	x -= v.x; y -= v.y; z -= v.z;
+}
+
+void Vector::operator*=(double v){
+	x *= v; y *= v; z *= v;
 }

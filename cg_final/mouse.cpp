@@ -1,15 +1,18 @@
 #include "mouse.h"
 #include <Windows.h>
 #include <GL/glut.h>
+#include <vector>
 #include <iostream>
 #include "bump_system.h"
 #include "player.h"
+#include "bullet.h"
 
 using namespace std;
 extern player myPlayer;
 extern int windowWidth;
 extern int windowHeight;
 extern double rotateSpeed;
+extern vector<bullet*> bullets;
 
 int lastMouseX = windowWidth / 2;
 int lastMouseY = windowHeight / 2;
@@ -69,13 +72,17 @@ void OnMouseMove(int x, int y)
 
 void OnMouseClick(int button, int state, int x, int y)
 {
+	bullet* p;
 	if (state == GLUT_DOWN)
 	{
 		switch (button){
 			case GLUT_LEFT_BUTTON:
-				BUMP_SYSTEM::check_hit();
+				p = myPlayer.shoot();
+				bullets.push_back(p);
+				break;
 			case GLUT_RIGHT_BUTTON:
 				myPlayer.change_zoom();
+				break;
 		}
 	}
 	glutPostRedisplay();
