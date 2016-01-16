@@ -43,6 +43,9 @@ void normalKeys(unsigned char key, int x, int y)
 	switch (key){
 	case 27: //ESC
 		exit(0);
+	case 32: //space
+		myPlayer.change_roam();
+		break;
 	case 'w':
 		myPlayer.set_move_state(0, true);
 		break;

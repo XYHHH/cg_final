@@ -18,7 +18,6 @@ void Map::drawSky(){
 
 	addTexture(point1, point2, sky_top, sky_front, sky_back, sky_left, sky_right);
 
-	glEnd();
 }
 
 void Map::drawGround(){
@@ -36,8 +35,9 @@ void Map::drawGround(){
 }
 
 void Map::addTexture(Vector point1, Vector point2, unsigned int top, unsigned int front,unsigned int back, unsigned int left, unsigned right){
-	glClearColor(0.0, 0.0, 0.0, 0.0);
+	//glClearColor(0.0, 0.0, 0.0, 0.0);
 	//glClear(GL_COLOR_BUFFER_BIT);
+	//glColor3f(1.0f,1.0f,1.0f);
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, top);
 
@@ -96,12 +96,6 @@ void Map::redraw(){
 				glPushMatrix();
 				glTranslatef(i, j, wallHeight/2);
 				glScalef(1, 1, wallHeight);
-
-				////立方体轮廓
-				//glColor3f(0.0f, 0.0f, 0.0f);
-				//glLineWidth(1.5f);
-				//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-				//glutSolidCube(1);
 
 				//实心立方体 
 				glColor3f(0.8f, 0.8f, 0.8f);

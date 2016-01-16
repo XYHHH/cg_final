@@ -14,7 +14,7 @@
 using namespace std;
 
 //obj3dmodel myModel;
-player myPlayer(2.0,2.0,0.5);
+player myPlayer(2.0,2.0,1.0);
 Map myMap;
 extern int windowWidth;
 extern int windowHeight;
@@ -108,6 +108,7 @@ int main(int argc, char *argv[])
 	//lightInit();
 	glutSetCursor(GLUT_CURSOR_NONE);
 	SetCursorPos(windowWidth/2, windowHeight/2);
+
 	glutPassiveMotionFunc(OnMouseMove);
 	glutMotionFunc(OnMouseMove);
 	glutMouseFunc(OnMouseClick);
