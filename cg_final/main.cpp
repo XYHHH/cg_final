@@ -14,7 +14,6 @@
 #include "UI.h"
 using namespace std;
 
-//obj3dmodel myModel;
 player myPlayer(2.0,2.0,1.0);
 Map myMap;
 extern int windowWidth;
@@ -24,7 +23,7 @@ extern double viewFar;
 extern double viewAngle;
 vector<bullet*> bullets;
 vector<monster*> monsters;
-//OBJ *gun;
+OBJ *gun;
 bool gameStart = true;
 
 void lightInit()
@@ -65,7 +64,6 @@ void display()
 		/*cout << position.x << position.y << position.z << endl;*/
 		gluLookAt(position.x, position.y, position.z, point.x, point.y, point.z, 0.0, 0.0, 1.0);
 
-		//gun->render(1,1,0,0);
 		myPlayer.move();
 		myMap.redraw();
 		vector<bullet*>::iterator i;
@@ -80,6 +78,7 @@ void display()
 				i++;
 
 		}
+		gun->render(1,1,0,0);
 		showGameUI();
 	}
 	else{
@@ -112,7 +111,7 @@ int main(int argc, char *argv[])
 
 	//myModel.parse("Resources/monk.obj");
 	initTexture();
-	//gun = new OBJ("../cg_final/gun.obj");
+	gun = new OBJ("../cg_final/gun.obj");
 
 	glutKeyboardFunc(normalKeys);
 	glutKeyboardUpFunc(upNormalKeys);
