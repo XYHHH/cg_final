@@ -14,12 +14,12 @@ public:
 		forward = Vector(-1.0, 0.0, 0.0);
 		radius = 0.1;
 		height = 1;
-		speed = 0.002;
+		speed = 0.01;
 		HP = 100;
 		zoom = false;
 		score = 0;
 		theta = 0.001;
-		gravity = 0.0002;
+		gravity = 0.0004;
 		vertical_speed = 0;
 		move_state[0] = move_state[1] = move_state[2] = move_state[3] = roam = false;
 	}
@@ -33,6 +33,8 @@ public:
 	int get_HP(){ return HP; }
 
 	int get_score(){ return score; }
+
+	void add_score(int s){ score+=s; }
 
 	void change_zoom(){ zoom = !zoom; }
 

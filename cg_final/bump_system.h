@@ -6,6 +6,10 @@
 #include "rigidObj.h"
 #include "map.h"
 #include "bullet.h"
+//#include "OBJ.h"
+#include <vector>
+
+//extern player myPlayer;
 
 class BUMP_SYSTEM
 {
@@ -54,6 +58,7 @@ public:
 		else
 			return false;
 	}
+
 
 };
 
